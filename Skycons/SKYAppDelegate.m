@@ -28,8 +28,8 @@
   NSView *container = self.backgroundView;
   NSRect frame = NSMakeRect(PADDING, PADDING, ICON_SIZE, ICON_SIZE);
   
-  for (int i = 0; i < types.count; i++) {
-    SKYIconType type = [types[i] integerValue];
+  for (int i = 1; i <= types.count; i++) {
+    SKYIconType type = [types[i - 1] integerValue];
     SKYIconView *icon = [[SKYIconView alloc] initWithFrame:frame];
     icon.type = type;
     [container addSubview:icon];
@@ -37,7 +37,8 @@
     
     frame.origin.x += ICON_SIZE + PADDING;
     
-    if (frame.origin.x >= container.frame.size.width) {
+    // Move to another row
+    if (i % 5 == 0) {
       frame.origin.y += ICON_SIZE + PADDING;
       frame.origin.x = PADDING;
     }

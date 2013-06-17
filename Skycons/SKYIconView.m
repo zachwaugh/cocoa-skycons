@@ -59,6 +59,12 @@ static const CGFloat WIND_PATHS[2][128] = {
 
 static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYWindOffset){0.56, 0.16} };
 
+@interface SKYIconView ()
+
+@property (strong) NSTimer *timer;
+
+@end
+
 @implementation SKYIconView
 
 - (id)initWithFrame:(NSRect)frame
@@ -68,6 +74,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   
   _type = SKYClearDay;
   _color = [NSColor blackColor];
+  _timer = [NSTimer scheduledTimerWithTimeInterval:1 / 60.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
   
   return self;
 }
@@ -93,12 +100,18 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
 - (void)play
 {
-  
+  self.timer = [NSTimer scheduledTimerWithTimeInterval:1 / 30.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
 }
 
 - (void)pause
 {
-  
+  [self.timer invalidate];
+  self.timer = nil;
+}
+
+- (void)update:(NSTimer *)timer
+{
+  [self setNeedsDisplay:YES];
 }
 
 #pragma mark - Drawing
@@ -106,8 +119,9 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 - (void)drawRect:(NSRect)dirtyRect
 {
   CGContextRef ctx = [NSGraphicsContext currentContext].graphicsPort;
-  CGFloat time = [[NSDate date] timeIntervalSince1970];
+  double time = [[NSDate date] timeIntervalSince1970] * 1000;
   CGColorRef color = self.color.CGColor;
+  
   switch (self.type) {
     case SKYClearDay:
       [self drawClearDayInContext:ctx time:time color:color];
