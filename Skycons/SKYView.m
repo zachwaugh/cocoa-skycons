@@ -41,6 +41,11 @@ void line(CGContextRef ctx, CGFloat ax, CGFloat ay, CGFloat bx, CGFloat by);
   [self setNeedsDisplay:YES];
 }
 
+- (BOOL)isFlipped
+{
+  return YES;
+}
+
 #pragma mark - Control
 
 - (void)play
@@ -67,6 +72,12 @@ void line(CGContextRef ctx, CGFloat ax, CGFloat ay, CGFloat bx, CGFloat by);
     case SKYClearNight:
       [self drawClearNightInContext:ctx time:time color:color];
       break;
+    case SKYPartlyCloudyDay:
+      [self drawPartlyCloudyDayInContext:ctx time:time color:color];
+      break;
+    case SKYPartlyCloudyNight:
+      [self drawPartlyCloudyNightInContext:ctx time:time color:color];
+      break;
     default:
       break;
   }
@@ -90,7 +101,62 @@ void line(CGContextRef ctx, CGFloat ax, CGFloat ay, CGFloat bx, CGFloat by);
   moon(ctx, time, w * 0.5, h * 0.5, s, s * STROKE, color);
 }
 
+- (void)drawPartlyCloudyDayInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+{
+  CGFloat w = self.bounds.size.width,
+  h = self.bounds.size.height,
+  s = MIN(w, h);
+  
+  sun(ctx, time, w * 0.625, h * 0.375, s * 0.75, s * STROKE, color);
+  cloud(ctx, time, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
+}
+
+- (void)drawPartlyCloudyNightInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+{
+  CGFloat w = self.bounds.size.width,
+  h = self.bounds.size.height,
+  s = MIN(w, h);
+  
+  moon(ctx, time, w * 0.625, h * 0.375, s * 0.75, s * STROKE, color);
+  cloud(ctx, time, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
+}
+
 #pragma mark - Drawing shapes
+
+void puff(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
+{
+  CGFloat  c = cos(t * TWO_PI),
+  s = sin(t * TWO_PI);
+  
+  rmax -= rmin;
+  
+  circle(ctx, cx - s * rx, cy + c * ry + rmax * 0.5, rmin + (1 - c * 0.5) * rmax);
+}
+
+void puffs(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
+{
+  CGFloat  i;
+  
+  for(i = 5; i--; ) {
+    puff(ctx, t + i / 5, cx, cy, rx, ry, rmin, rmax);
+  }
+}
+
+void cloud(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
+{
+  t /= 30000;
+  
+  CGFloat a = cw * 0.21,
+  b = cw * 0.12,
+  c = cw * 0.24,
+  d = cw * 0.28;
+  
+  CGContextSetFillColorWithColor(ctx, color);
+  puffs(ctx, t, cx, cy, a, b, c, d);
+  CGContextSetBlendMode(ctx, kCGBlendModeDestinationOut);
+  puffs(ctx, t, cx, cy, a, b, c - s, d - s);
+  CGContextSetBlendMode(ctx, kCGBlendModeSourceOut);
+}
 
 void sun(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color) {
   t /= 120000;
@@ -138,6 +204,96 @@ void moon(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFlo
   CGContextClosePath(ctx);
   CGContextStrokePath(ctx);
 }
+
+//function rain(ctx, t, cx, cy, cw, s, color) {
+//  t /= 1350;
+//  
+//  var a = cw * 0.16,
+//  b = TWO_PI * 11 / 12,
+//  c = TWO_PI *  7 / 12,
+//  i, p, x, y;
+//  
+//  ctx.fillStyle = color;
+//  
+//  for(i = 4; i--; ) {
+//    p = (t + i / 4) % 1;
+//    x = cx + ((i - 1.5) / 1.5) * (i === 1 || i === 2 ? -1 : 1) * a;
+//    y = cy + p * p * cw;
+//    ctx.beginPath();
+//    ctx.moveTo(x, y - s * 1.5);
+//    ctx.arc(x, y, s * 0.75, b, c, false);
+//    ctx.fill();
+//  }
+//}
+
+//function sleet(ctx, t, cx, cy, cw, s, color) {
+//  t /= 750;
+//  
+//  var a = cw * 0.1875,
+//  b = TWO_PI * 11 / 12,
+//  c = TWO_PI *  7 / 12,
+//  i, p, x, y;
+//  
+//  ctx.strokeStyle = color;
+//  ctx.lineWidth = s * 0.5;
+//  ctx.lineCap = "round";
+//  ctx.lineJoin = "round";
+//  
+//  for(i = 4; i--; ) {
+//    p = (t + i / 4) % 1;
+//    x = Math.floor(cx + ((i - 1.5) / 1.5) * (i === 1 || i === 2 ? -1 : 1) * a) + 0.5;
+//    y = cy + p * cw;
+//    line(ctx, x, y - s * 1.5, x, y + s * 1.5);
+//  }
+//}
+
+//function snow(ctx, t, cx, cy, cw, s, color) {
+//  t /= 3000;
+//  
+//  var a  = cw * 0.16,
+//  b  = s * 0.75,
+//  u  = t * TWO_PI * 0.7,
+//  ux = Math.cos(u) * b,
+//  uy = Math.sin(u) * b,
+//  v  = u + TWO_PI / 3,
+//  vx = Math.cos(v) * b,
+//  vy = Math.sin(v) * b,
+//  w  = u + TWO_PI * 2 / 3,
+//  wx = Math.cos(w) * b,
+//  wy = Math.sin(w) * b,
+//  i, p, x, y;
+//  
+//  ctx.strokeStyle = color;
+//  ctx.lineWidth = s * 0.5;
+//  ctx.lineCap = "round";
+//  ctx.lineJoin = "round";
+//  
+//  for(i = 4; i--; ) {
+//    p = (t + i / 4) % 1;
+//    x = cx + Math.sin((p + i / 4) * TWO_PI) * a;
+//    y = cy + p * cw;
+//    
+//    line(ctx, x - ux, y - uy, x + ux, y + uy);
+//    line(ctx, x - vx, y - vy, x + vx, y + vy);
+//    line(ctx, x - wx, y - wy, x + wx, y + wy);
+//  }
+//}
+
+//function fogbank(ctx, t, cx, cy, cw, s, color) {
+//  t /= 30000;
+//  
+//  var a = cw * 0.21,
+//  b = cw * 0.06,
+//  c = cw * 0.21,
+//  d = cw * 0.28;
+//  
+//  ctx.fillStyle = color;
+//  puffs(ctx, t, cx, cy, a, b, c, d);
+//  
+//  ctx.globalCompositeOperation = 'destination-out';
+//  puffs(ctx, t, cx, cy, a, b, c - s, d - s);
+//  ctx.globalCompositeOperation = 'source-over';
+//}
 
 #pragma mark - Drawing pritives
 

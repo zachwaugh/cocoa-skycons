@@ -15,6 +15,8 @@
 {
   self.sun.type = SKYClearDay;
   self.moon.type = SKYClearNight;
+  self.cloudy.type = SKYPartlyCloudyDay;
+  self.cloudyNight.type = SKYPartlyCloudyNight;
 }
 
 @end

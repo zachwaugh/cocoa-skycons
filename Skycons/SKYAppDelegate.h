@@ -15,5 +15,7 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet SKYView *sun;
 @property (weak) IBOutlet SKYView *moon;
+@property (weak) IBOutlet SKYView *cloudy;
+@property (weak) IBOutlet SKYView *cloudyNight;
 
 @end

@@ -1305,115 +1305,116 @@
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
-						<object class="NSCustomView" id="332011572">
+						<object class="NSCustomView" id="545256479">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 222}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="851464659"/>
+							<reference key="NSNextKeyView" ref="102821237"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="851464659">
+						<object class="NSCustomView" id="102821237">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{168, 222}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="458448170"/>
+							<reference key="NSNextKeyView" ref="187702904"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="458448170">
+						<object class="NSCustomView" id="187702904">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{316, 222}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="34020380"/>
+							<reference key="NSNextKeyView" ref="955199916"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="34020380">
+						<object class="NSCustomView" id="955199916">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{467, 222}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="982018356"/>
+							<reference key="NSNextKeyView" ref="785315753"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="982018356">
+						<object class="NSCustomView" id="785315753">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{623, 222}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="682497514"/>
+							<reference key="NSNextKeyView" ref="619529314"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="682497514">
+						<object class="NSCustomView" id="619529314">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 72}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="431827409"/>
+							<reference key="NSNextKeyView" ref="291008350"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="431827409">
+						<object class="NSCustomView" id="291008350">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{168, 72}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="409552257"/>
+							<reference key="NSNextKeyView" ref="902156529"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="409552257">
+						<object class="NSCustomView" id="902156529">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{316, 72}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="116841776"/>
+							<reference key="NSNextKeyView" ref="347308153"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="116841776">
+						<object class="NSCustomView" id="347308153">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{467, 72}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="801522662"/>
+							<reference key="NSNextKeyView" ref="432486575"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSCustomView" id="801522662">
+						<object class="NSCustomView" id="432486575">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{623, 72}, {128, 128}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="141479225"/>
+							<reference key="NSNextKeyView" ref="160424279"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">SKYView</string>
 						</object>
-						<object class="NSButton" id="141479225">
+						<object class="NSButton" id="160424279">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{680, 13}, {77, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="794665216">
+							<object class="NSButtonCell" key="NSCell" id="168300762">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">Pause</string>
@@ -1423,7 +1424,7 @@
 									<int key="NSfFlags">1044</int>
 								</object>
 								<string key="NSCellIdentifier">_NS:9</string>
-								<reference key="NSControlView" ref="141479225"/>
+								<reference key="NSControlView" ref="160424279"/>
 								<int key="NSButtonFlags">-2038284288</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
@@ -1437,7 +1438,7 @@
 					<string key="NSFrameSize">{771, 370}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="332011572"/>
+					<reference key="NSNextKeyView" ref="545256479"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
@@ -2136,7 +2137,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">sun</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="332011572"/>
+						<reference key="destination" ref="545256479"/>
 					</object>
 					<int key="connectionID">548</int>
 				</object>
@@ -2144,9 +2145,25 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">moon</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="851464659"/>
+						<reference key="destination" ref="102821237"/>
 					</object>
 					<int key="connectionID">549</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">cloudy</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="187702904"/>
+					</object>
+					<int key="connectionID">550</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">cloudyNight</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="955199916"/>
+					</object>
+					<int key="connectionID">551</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2673,17 +2690,17 @@
 						<int key="objectID">372</int>
 						<reference key="object" ref="439893737"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="332011572"/>
-							<reference ref="851464659"/>
-							<reference ref="458448170"/>
-							<reference ref="34020380"/>
-							<reference ref="982018356"/>
-							<reference ref="682497514"/>
-							<reference ref="431827409"/>
-							<reference ref="409552257"/>
-							<reference ref="116841776"/>
-							<reference ref="801522662"/>
-							<reference ref="141479225"/>
+							<reference ref="545256479"/>
+							<reference ref="102821237"/>
+							<reference ref="187702904"/>
+							<reference ref="955199916"/>
+							<reference ref="785315753"/>
+							<reference ref="619529314"/>
+							<reference ref="291008350"/>
+							<reference ref="902156529"/>
+							<reference ref="347308153"/>
+							<reference ref="432486575"/>
+							<reference ref="160424279"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3162,66 +3179,66 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">536</int>
-						<reference key="object" ref="332011572"/>
+						<reference key="object" ref="545256479"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">537</int>
-						<reference key="object" ref="851464659"/>
+						<reference key="object" ref="102821237"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">538</int>
-						<reference key="object" ref="458448170"/>
+						<reference key="object" ref="187702904"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">539</int>
-						<reference key="object" ref="34020380"/>
+						<reference key="object" ref="955199916"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">540</int>
-						<reference key="object" ref="982018356"/>
+						<reference key="object" ref="785315753"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">541</int>
-						<reference key="object" ref="682497514"/>
+						<reference key="object" ref="619529314"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">542</int>
-						<reference key="object" ref="431827409"/>
+						<reference key="object" ref="291008350"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">543</int>
-						<reference key="object" ref="409552257"/>
+						<reference key="object" ref="902156529"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">544</int>
-						<reference key="object" ref="116841776"/>
+						<reference key="object" ref="347308153"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">545</int>
-						<reference key="object" ref="801522662"/>
+						<reference key="object" ref="432486575"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">546</int>
-						<reference key="object" ref="141479225"/>
+						<reference key="object" ref="160424279"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="794665216"/>
+							<reference ref="168300762"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">547</int>
-						<reference key="object" ref="794665216"/>
-						<reference key="parent" ref="141479225"/>
+						<reference key="object" ref="168300762"/>
+						<reference key="parent" ref="160424279"/>
 					</object>
 				</array>
 			</object>
@@ -3397,7 +3414,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">549</int>
+			<int key="maxID">551</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3405,11 +3422,21 @@
 					<string key="className">SKYAppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="cloudy">SKYView</string>
+						<string key="cloudyNight">SKYView</string>
 						<string key="moon">SKYView</string>
 						<string key="sun">SKYView</string>
 						<string key="window">NSWindow</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="cloudy">
+							<string key="name">cloudy</string>
+							<string key="candidateClassName">SKYView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cloudyNight">
+							<string key="name">cloudyNight</string>
+							<string key="candidateClassName">SKYView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="moon">
 							<string key="name">moon</string>
 							<string key="candidateClassName">SKYView</string>
