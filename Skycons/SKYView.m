@@ -78,6 +78,9 @@ void line(CGContextRef ctx, CGFloat ax, CGFloat ay, CGFloat bx, CGFloat by);
     case SKYPartlyCloudyNight:
       [self drawPartlyCloudyNightInContext:ctx time:time color:color];
       break;
+    case SKYCloudy:
+      [self drawCloudyInContext:ctx time:time color:color];
+      break;
     default:
       break;
   }
@@ -119,6 +122,15 @@ void line(CGContextRef ctx, CGFloat ax, CGFloat ay, CGFloat bx, CGFloat by);
   
   moon(ctx, time, w * 0.625, h * 0.375, s * 0.75, s * STROKE, color);
   cloud(ctx, time, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
+}
+
+- (void)drawCloudyInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+{
+  CGFloat w = self.bounds.size.width,
+  h = self.bounds.size.height,
+  s = MIN(w, h);
+
+  cloud(ctx, time, w * 0.5, h * 0.5, s, s * STROKE, color);
 }
 
 #pragma mark - Drawing shapes
