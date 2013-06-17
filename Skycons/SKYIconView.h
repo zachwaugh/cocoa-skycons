@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, SKYIconType) {
   SKYFog
 };
 
-@interface SKYView : NSView
+@interface SKYIconView : NSView
 
 @property (strong, nonatomic) NSColor *color;
 @property (assign, nonatomic) SKYIconType type;

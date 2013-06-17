@@ -8,16 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class SKYView;
+@class SKYIconView;
 
 @interface SKYAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet SKYView *sun;
-@property (weak) IBOutlet SKYView *moon;
-@property (weak) IBOutlet SKYView *cloudyDay;
-@property (weak) IBOutlet SKYView *cloudyNight;
-@property (weak) IBOutlet SKYView *cloudy;
+@property (weak) IBOutlet NSView *backgroundView;
 
 - (IBAction)changeColor:(id)sender;
 

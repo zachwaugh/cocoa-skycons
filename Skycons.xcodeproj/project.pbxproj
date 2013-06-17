@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92450BA0176FA37C002523DD /* SKYBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92450B9F176FA37C002523DD /* SKYBackgroundView.m */; };
 		92720F7B176F5CE800419BBD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92720F7A176F5CE800419BBD /* Cocoa.framework */; };
 		92720F85176F5CE800419BBD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92720F83176F5CE800419BBD /* InfoPlist.strings */; };
 		92720F87176F5CE800419BBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92720F86176F5CE800419BBD /* main.m */; };
@@ -17,7 +18,7 @@
 		92720F9A176F5CEA00419BBD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92720F7A176F5CE800419BBD /* Cocoa.framework */; };
 		92720FA2176F5CEA00419BBD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92720FA0176F5CEA00419BBD /* InfoPlist.strings */; };
 		92720FA5176F5CEA00419BBD /* SkyconsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92720FA4176F5CEA00419BBD /* SkyconsTests.m */; };
-		92720FB0176F5DA100419BBD /* SKYView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92720FAF176F5DA100419BBD /* SKYView.m */; };
+		92720FB0176F5DA100419BBD /* SKYIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92720FAF176F5DA100419BBD /* SKYIconView.m */; };
 		92720FB3176F5E8100419BBD /* SKYSunView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92720FB2176F5E8100419BBD /* SKYSunView.m */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		92450B9E176FA37C002523DD /* SKYBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKYBackgroundView.h; sourceTree = "<group>"; };
+		92450B9F176FA37C002523DD /* SKYBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKYBackgroundView.m; sourceTree = "<group>"; };
 		92720F77176F5CE800419BBD /* Skycons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skycons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92720F7A176F5CE800419BBD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		92720F7D176F5CE800419BBD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -51,8 +54,8 @@
 		92720FA1176F5CEA00419BBD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		92720FA3176F5CEA00419BBD /* SkyconsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkyconsTests.h; sourceTree = "<group>"; };
 		92720FA4176F5CEA00419BBD /* SkyconsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SkyconsTests.m; sourceTree = "<group>"; };
-		92720FAE176F5DA100419BBD /* SKYView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKYView.h; sourceTree = "<group>"; };
-		92720FAF176F5DA100419BBD /* SKYView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKYView.m; sourceTree = "<group>"; };
+		92720FAE176F5DA100419BBD /* SKYIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKYIconView.h; sourceTree = "<group>"; };
+		92720FAF176F5DA100419BBD /* SKYIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKYIconView.m; sourceTree = "<group>"; };
 		92720FB1176F5E8100419BBD /* SKYSunView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKYSunView.h; sourceTree = "<group>"; };
 		92720FB2176F5E8100419BBD /* SKYSunView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKYSunView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,8 +125,10 @@
 			children = (
 				92720F8C176F5CE900419BBD /* SKYAppDelegate.h */,
 				92720F8D176F5CE900419BBD /* SKYAppDelegate.m */,
-				92720FAE176F5DA100419BBD /* SKYView.h */,
-				92720FAF176F5DA100419BBD /* SKYView.m */,
+				92450B9E176FA37C002523DD /* SKYBackgroundView.h */,
+				92450B9F176FA37C002523DD /* SKYBackgroundView.m */,
+				92720FAE176F5DA100419BBD /* SKYIconView.h */,
+				92720FAF176F5DA100419BBD /* SKYIconView.m */,
 				92720F8F176F5CEA00419BBD /* MainMenu.xib */,
 				92720F81176F5CE800419BBD /* Supporting Files */,
 				92720FB1176F5E8100419BBD /* SKYSunView.h */,
@@ -274,8 +279,9 @@
 			files = (
 				92720F87176F5CE800419BBD /* main.m in Sources */,
 				92720F8E176F5CE900419BBD /* SKYAppDelegate.m in Sources */,
-				92720FB0176F5DA100419BBD /* SKYView.m in Sources */,
+				92720FB0176F5DA100419BBD /* SKYIconView.m in Sources */,
 				92720FB3176F5E8100419BBD /* SKYSunView.m in Sources */,
+				92450BA0176FA37C002523DD /* SKYBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +471,7 @@
 				92720FAA176F5CEA00419BBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		92720FAB176F5CEA00419BBD /* Build configuration list for PBXNativeTarget "SkyconsTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +480,7 @@
 				92720FAD176F5CEA00419BBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
