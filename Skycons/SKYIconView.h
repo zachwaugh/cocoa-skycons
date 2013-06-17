@@ -6,7 +6,11 @@
 //  Copyright (c) 2013 Zach Waugh. All rights reserved.
 //
 
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#else
 #import <Cocoa/Cocoa.h>
+#endif
 
 typedef NS_ENUM(NSInteger, SKYIconType) {
   SKYClearDay,
@@ -21,9 +25,16 @@ typedef NS_ENUM(NSInteger, SKYIconType) {
   SKYFog
 };
 
+#if TARGET_OS_IPHONE
+@interface SKYIconView : UIView
+
+@property (strong, nonatomic) UIColor *color;
+#else
 @interface SKYIconView : NSView
 
 @property (strong, nonatomic) NSColor *color;
+#endif
+
 @property (assign, nonatomic) SKYIconType type;
 
 - (void)play;

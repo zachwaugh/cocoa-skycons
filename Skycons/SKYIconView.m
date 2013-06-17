@@ -67,6 +67,40 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
 @implementation SKYIconView
 
+#if TARGET_OS_IPHONE
+
+- (id)initWithFrame:(CGRect)frame
+{
+  self = [super initWithFrame:frame];
+  if (!self) return nil;
+  
+  _type = SKYClearDay;
+  _color = [UIColor blackColor];
+  _timer = [NSTimer scheduledTimerWithTimeInterval:1 / 60.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
+  self.backgroundColor = [UIColor clearColor];
+  
+  return self;
+}
+
+- (void)setColor:(UIColor *)color
+{
+  _color = color;
+  [self refresh];
+}
+
+- (void)refresh
+{
+  [self setNeedsDisplay];
+}
+
+- (void)drawRect:(CGRect)rect
+{
+  CGContextRef ctx = UIGraphicsGetCurrentContext();
+  [self drawRect:rect inContext:ctx];
+}
+
+#else
+
 - (id)initWithFrame:(NSRect)frame
 {
   self = [super initWithFrame:frame];
@@ -79,21 +113,34 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   return self;
 }
 
+- (BOOL)isFlipped
+{
+  return YES;
+}
+
+- (void)refresh
+{
+  [self setNeedsDisplay:YES];
+}
+
 - (void)setColor:(NSColor *)color
 {
   _color = color;
-  [self setNeedsDisplay:YES];
+  [self refresh];
 }
+
+- (void)drawRect:(NSRect)rect
+{
+  CGContextRef ctx = [NSGraphicsContext currentContext].graphicsPort;
+  [self drawRect:NSRectToCGRect(rect) inContext:ctx];
+}
+
+#endif
 
 - (void)setType:(SKYIconType)type
 {
   _type = type;
-  [self setNeedsDisplay:YES];
-}
-
-- (BOOL)isFlipped
-{
-  return YES;
+  [self refresh];
 }
 
 #pragma mark - Control
@@ -111,47 +158,46 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
 - (void)update:(NSTimer *)timer
 {
-  [self setNeedsDisplay:YES];
+  [self refresh];
 }
 
 #pragma mark - Drawing
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void)drawRect:(CGRect)rect inContext:(CGContextRef)context
 {
-  CGContextRef ctx = [NSGraphicsContext currentContext].graphicsPort;
   double time = [[NSDate date] timeIntervalSince1970] * 1000;
   CGColorRef color = self.color.CGColor;
   
   switch (self.type) {
     case SKYClearDay:
-      [self drawClearDayInContext:ctx time:time color:color];
+      [self drawClearDayInContext:context time:time color:color];
       break;
     case SKYClearNight:
-      [self drawClearNightInContext:ctx time:time color:color];
+      [self drawClearNightInContext:context time:time color:color];
       break;
     case SKYPartlyCloudyDay:
-      [self drawPartlyCloudyDayInContext:ctx time:time color:color];
+      [self drawPartlyCloudyDayInContext:context time:time color:color];
       break;
     case SKYPartlyCloudyNight:
-      [self drawPartlyCloudyNightInContext:ctx time:time color:color];
+      [self drawPartlyCloudyNightInContext:context time:time color:color];
       break;
     case SKYCloudy:
-      [self drawCloudyInContext:ctx time:time color:color];
+      [self drawCloudyInContext:context time:time color:color];
       break;
     case SKYRain:
-      [self drawRainInContext:ctx time:time color:color];
+      [self drawRainInContext:context time:time color:color];
       break;
     case SKYSleet:
-      [self drawSleetInContext:ctx time:time color:color];
+      [self drawSleetInContext:context time:time color:color];
       break;
     case SKYSnow:
-      [self drawSnowInContext:ctx time:time color:color];
+      [self drawSnowInContext:context time:time color:color];
       break;
     case SKYWind:
-      [self drawWindInContext:ctx time:time color:color];
+      [self drawWindInContext:context time:time color:color];
       break;
     case SKYFog:
-      [self drawFogInContext:ctx time:time color:color];
+      [self drawFogInContext:context time:time color:color];
       break;
     default:
       break;
@@ -288,10 +334,10 @@ void puff(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFlo
 
 void puffs(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
 {
-  int i;
+  CGFloat i;
   
   for (i = 5; i--; ) {
-    puff(ctx, t + i / 5.0, cx, cy, rx, ry, rmin, rmax);
+    puff(ctx, t + i / 5, cx, cy, rx, ry, rmin, rmax);
   }
 }
 
@@ -459,7 +505,7 @@ void leaf(CGContextRef ctx, CGFloat t, CGFloat x, CGFloat y, CGFloat cw, CGFloat
   CGFloat a = cw / 8,
   b = a / 3,
   c = 2 * b,
-  d = ((int)t % 1) * TWO_PI,
+  d = fmod(t, 1) * TWO_PI,
   e = cos(d),
   f = sin(d);
   
@@ -490,8 +536,8 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
   
   CGFloat a = fmod(t + index - windOffset.start, total),
   c = fmod(t + index - windOffset.end, total),
-  e = fmod(t + index, total);
-  NSInteger b, d, f, i;
+  e = fmod(t + index, total),
+  b, d, f, i;
   
   CGContextSetStrokeColorWithColor(ctx, color);
   CGContextSetLineWidth(ctx, s);
@@ -507,7 +553,7 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
     b *= 2;
     b += 2;
     
-    CGContextMoveToPoint(ctx, cx + (path[b - 2] * (1 - a) + path[b] * a) * cw, cy + (path[b - 1] * (1 - a) + path[b + 1] * a) * cw);
+    CGContextMoveToPoint(ctx, cx + (path[(int)b - 2] * (1 - a) + path[(int)b] * a) * cw, cy + (path[(int)b - 1] * (1 - a) + path[(int)b + 1] * a) * cw);
     
     if (c < 1) {
       c *= pathLength / 2 - 1;
@@ -517,15 +563,15 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
       d += 2;
       
       for (i = b; i != d; i += 2) {
-        CGContextAddLineToPoint(ctx, cx + path[i] * cw, cy + path[i + 1] * cw);
+        CGContextAddLineToPoint(ctx, cx + path[(int)i] * cw, cy + path[(int)i + 1] * cw);
       }
       
-      CGContextAddLineToPoint(ctx, cx + (path[d - 2] * (1 - c) + path[d] * c) * cw, cy + (path[d - 1] * (1 - c) + path[d + 1] * c) * cw);
+      CGContextAddLineToPoint(ctx, cx + (path[(int)d - 2] * (1 - c) + path[(int)d] * c) * cw, cy + (path[(int)d - 1] * (1 - c) + path[(int)d + 1] * c) * cw);
     }
     
     else {
       for (i = b; i != pathLength; i += 2) {
-        CGContextAddLineToPoint(ctx, cx + path[i] * cw, cy + path[i + 1] * cw);
+        CGContextAddLineToPoint(ctx, cx + path[(int)i] * cw, cy + path[(int)i + 1] * cw);
       }
     }
 
@@ -542,10 +588,10 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
     CGContextMoveToPoint(ctx, cx + path[0] * cw, cy + path[1] * cw);
     
     for (i = 2; i != d; i += 2) {
-      CGContextAddLineToPoint(ctx, cx + path[i] * cw, cy + path[i + 1] * cw);
+      CGContextAddLineToPoint(ctx, cx + path[(int)i] * cw, cy + path[(int)i + 1] * cw);
     }
     
-    CGContextAddLineToPoint(ctx, cx + (path[d - 2] * (1 - c) + path[d] * c) * cw, cy + (path[d - 1] * (1 - c) + path[d + 1] * c) * cw);
+    CGContextAddLineToPoint(ctx, cx + (path[(int)d - 2] * (1 - c) + path[(int)d] * c) * cw, cy + (path[(int)d - 1] * (1 - c) + path[(int)d + 1] * c) * cw);
     CGContextStrokePath(ctx);
   }
   
@@ -556,7 +602,7 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
     f *= 2;
     f += 2;
     
-    leaf(ctx, t, cx + (path[f - 2] * (1 - e) + path[f] * e) * cw, cy + (path[f - 1] * (1 - e) + path[f + 1] * e) * cw, cw, s, color);
+    leaf(ctx, t, cx + (path[(int)f - 2] * (1 - e) + path[(int)f] * e) * cw, cy + (path[(int)f - 1] * (1 - e) + path[(int)f + 1] * e) * cw, cw, s, color);
   }
 }
 
