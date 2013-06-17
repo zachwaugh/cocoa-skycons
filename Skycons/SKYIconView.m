@@ -279,9 +279,8 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
 void puff(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
 {
-  CGFloat  c = cos(t * TWO_PI),
+  CGFloat c = cos(t * TWO_PI),
   s = sin(t * TWO_PI);
-  
   rmax -= rmin;
   
   circle(ctx, cx - s * rx, cy + c * ry + rmax * 0.5, rmin + (1 - c * 0.5) * rmax);
@@ -289,10 +288,10 @@ void puff(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFlo
 
 void puffs(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
 {
-  CGFloat  i;
+  int i;
   
-  for(i = 5; i--; ) {
-    puff(ctx, t + i / 5, cx, cy, rx, ry, rmin, rmax);
+  for (i = 5; i--; ) {
+    puff(ctx, t + i / 5.0, cx, cy, rx, ry, rmin, rmax);
   }
 }
 
@@ -309,7 +308,7 @@ void cloud(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFl
   puffs(ctx, t, cx, cy, a, b, c, d);
   CGContextSetBlendMode(ctx, kCGBlendModeDestinationOut);
   puffs(ctx, t, cx, cy, a, b, c - s, d - s);
-  CGContextSetBlendMode(ctx, kCGBlendModeSourceOut);
+  CGContextSetBlendMode(ctx, kCGBlendModeNormal);
 }
 
 void sun(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
@@ -327,7 +326,7 @@ void sun(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloa
   CGContextSetLineJoin(ctx, kCGLineJoinRound);
   
   CGContextBeginPath(ctx);
-  CGContextAddArc(ctx, cx, cy, a, 0, TWO_PI, 0);
+  CGContextAddArc(ctx, cx, cy, a, 0, TWO_PI, 1);
   CGContextStrokePath(ctx);
   
   for (i = 8; i--; ) {
@@ -373,12 +372,13 @@ void rain(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFlo
   CGContextSetFillColorWithColor(ctx, color);
   
   for (i = 4; i--; ) {
-    p = (int)(t + i / 4) % 1;
+    p = fmod(t + i / 4, 1);
     x = cx + ((i - 1.5) / 1.5) * (i == 1 || i == 2 ? -1 : 1) * a;
     y = cy + p * p * cw;
+    //NSLog(@"[rain] i: %d, t: %f, p: %f, x: %f, y: %f", i, t, p, x, y);
     CGContextBeginPath(ctx);
     CGContextMoveToPoint(ctx, x, y - s * 1.5);
-    CGContextAddArc(ctx, x, y, s * 0.75, b, c, false);
+    CGContextAddArc(ctx, x, y, s * 0.75, b, c, 0);
     CGContextFillPath(ctx);
   }
 }
@@ -398,7 +398,7 @@ void sleet(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFl
   CGContextSetLineJoin(ctx, kCGLineJoinRound);
 
   for (i = 4; i--; ) {
-    p = (int)(t + i / 4) % 1;
+    p = fmod(t + i / 4, 1);
     x = floor(cx + ((i - 1.5) / 1.5) * (i == 1 || i == 2 ? -1 : 1) * a) + 0.5;
     y = cy + p * cw;
     line(ctx, x, y - s * 1.5, x, y + s * 1.5);
@@ -428,7 +428,7 @@ void snow(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFlo
   CGContextSetLineJoin(ctx, kCGLineJoinRound);
   
   for (i = 4; i--; ) {
-    p = (int)(t + i / 4) % 1;
+    p = fmod(t + i / 4, 1);
     x = cx + sin((p + i / 4) * TWO_PI) * a;
     y = cy + p * cw;
     
@@ -451,7 +451,7 @@ void fogbank(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CG
 
   CGContextSetBlendMode(ctx, kCGBlendModeDestinationOut);
   puffs(ctx, t, cx, cy, a, b, c - s, d - s);
-  CGContextSetBlendMode(ctx, kCGBlendModeSourceOut);
+  CGContextSetBlendMode(ctx, kCGBlendModeNormal);
 }
 
 void leaf(CGContextRef ctx, CGFloat t, CGFloat x, CGFloat y, CGFloat cw, CGFloat s, CGColorRef color)
@@ -470,12 +470,12 @@ void leaf(CGContextRef ctx, CGFloat t, CGFloat x, CGFloat y, CGFloat cw, CGFloat
   CGContextSetLineJoin(ctx, kCGLineJoinRound);;
   
   CGContextBeginPath(ctx);
-  CGContextAddArc(ctx, x, y, a, d, d + M_PI, 0);
-  CGContextAddArc(ctx, x - b * e, y - b * f, c, d + M_PI, d, false);
-  CGContextAddArc(ctx, x + c * e, y + c * f, b, d + M_PI, d, true );
+  CGContextAddArc(ctx, x, y, a, d, d + M_PI, 1);
+  CGContextAddArc(ctx, x - b * e, y - b * f, c, d + M_PI, d, 1);
+  CGContextAddArc(ctx, x + c * e, y + c * f, b, d + M_PI, d, 0);
   CGContextSetBlendMode(ctx, kCGBlendModeDestinationOut);
   CGContextFillPath(ctx);
-  CGContextSetBlendMode(ctx, kCGBlendModeSourceAtop);
+  CGContextSetBlendMode(ctx, kCGBlendModeNormal);
   CGContextStrokePath(ctx);
 }
 
@@ -488,10 +488,10 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
   NSInteger pathLength = sizeof(WIND_PATHS[index]) / sizeof(WIND_PATHS[index][0]);
   CGFloat *path = WIND_PATHS[index];
   
-  NSInteger a = (int)(t + index - windOffset.start) % (int)total,
-  c = (int)(t + index - windOffset.end) % (int)total,
-  e = (int)(t + index) % (int)total,
-  b, d, f, i;
+  CGFloat a = fmod(t + index - windOffset.start, total),
+  c = fmod(t + index - windOffset.end, total),
+  e = fmod(t + index, total);
+  NSInteger b, d, f, i;
   
   CGContextSetStrokeColorWithColor(ctx, color);
   CGContextSetLineWidth(ctx, s);
@@ -565,7 +565,7 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
 void circle(CGContextRef ctx, CGFloat x, CGFloat y, CGFloat r)
 {
   CGContextBeginPath(ctx);
-  CGContextAddArc(ctx, x, y, r, 0, M_PI * 2.0, 0);
+  CGContextAddArc(ctx, x, y, r, 0, M_PI * 2.0, 1);
   CGContextFillPath(ctx);
 }
 
