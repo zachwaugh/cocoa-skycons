@@ -10,8 +10,9 @@ Create a `SKYIconView`, specify the type, and use it as you would any other NSVi
 SKYIconView *icon = [[SKYIconView alloc] initWithFrame:frame];
 icon.type = SKYRain;
 [view addSubview:icon];
-
 ```
+
+I'm on the fence about whether each icon type should be a subclass, that probably makes more sense in Objective-C, but this method has the benefit of being able to easily update what the icon is if conditions change.
 
 ## Status
 
@@ -23,7 +24,7 @@ This is in the early stages. Currently, mostly works on Mac, but is broken on iO
 
 ## Screenshots
 
-![Skycons Mac](http://cl.ly/image/3i163Z2S1D0s/Screen%20Shot%202013-06-17%20at%205.48.43%20PM.png)
+![Skycons Mac](http://cl.ly/image/0s3h1t3F1W40/Image%202013-06-18%20at%2010.34.33%20AM.png)
 
 ## License
 
