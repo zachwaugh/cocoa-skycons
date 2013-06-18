@@ -145,6 +145,11 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
 #pragma mark - Control
 
+- (BOOL)isAnimating
+{
+	return (self.timer != nil);
+}
+
 - (void)play
 {
   self.timer = [NSTimer scheduledTimerWithTimeInterval:1 / 30.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
@@ -542,11 +547,11 @@ void leaf(CGContextRef ctx, CGFloat t, CGFloat x, CGFloat y, CGFloat cw, CGFloat
   CGContextSetBlendMode(ctx, kCGBlendModeDestinationOut);
 	CGContextBeginTransparencyLayer(ctx, NULL);
 	CGContextFillPath(ctx);
-	CGContextSetBlendMode(ctx, kCGBlendModeNormal);
+	
 	CGContextEndTransparencyLayer(ctx);
 
   CGContextStrokePath(ctx);
-	
+	CGContextSetBlendMode(ctx, kCGBlendModeNormal);
 }
 
 void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, NSInteger index, CGFloat total, CGColorRef color)

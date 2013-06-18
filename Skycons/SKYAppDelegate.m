@@ -54,4 +54,15 @@
   }
 }
 
+- (void)toggleAnimation:(id)sender
+{
+	for (SKYIconView *icon in self.icons) {
+    if ([icon isAnimating]) {
+			[icon pause];
+		} else {
+			[icon play];
+		}
+  }
+}
+
 @end

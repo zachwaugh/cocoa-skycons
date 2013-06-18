@@ -39,5 +39,6 @@ typedef NS_ENUM(NSInteger, SKYIconType) {
 
 - (void)play;
 - (void)pause;
+- (BOOL)isAnimating;
 
 @end

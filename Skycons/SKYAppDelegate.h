@@ -16,5 +16,6 @@
 @property (weak) IBOutlet NSView *backgroundView;
 
 - (IBAction)changeColor:(id)sender;
+- (IBAction)toggleAnimation:(id)sender;
 
 @end
