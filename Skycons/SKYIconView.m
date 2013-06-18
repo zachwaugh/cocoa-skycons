@@ -161,6 +161,11 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   [self refresh];
 }
 
+- (BOOL)isOpaque
+{
+	return NO;
+}
+
 #pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect inContext:(CGContextRef)context
@@ -230,8 +235,10 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   h = self.bounds.size.height,
   s = MIN(w, h);
   
+	CGContextBeginTransparencyLayer(ctx, NULL);
   sun(ctx, time, w * 0.625, h * 0.375, s * 0.75, s * STROKE, color);
   cloud(ctx, time, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
+	CGContextEndTransparencyLayer(ctx);
 }
 
 - (void)drawPartlyCloudyNightInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
@@ -240,8 +247,10 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   h = self.bounds.size.height,
   s = MIN(w, h);
   
+	CGContextBeginTransparencyLayer(ctx, NULL);
   moon(ctx, time, w * 0.625, h * 0.375, s * 0.75, s * STROKE, color);
   cloud(ctx, time, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
+	CGContextEndTransparencyLayer(ctx);
 }
 
 - (void)drawCloudyInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
@@ -250,7 +259,9 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   h = self.bounds.size.height,
   s = MIN(w, h);
 
+	CGContextBeginTransparencyLayer(ctx, NULL);
   cloud(ctx, time, w * 0.5, h * 0.5, s, s * STROKE, color);
+	CGContextEndTransparencyLayer(ctx);
 }
 
 - (void)drawRainInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
@@ -259,8 +270,10 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   h = self.bounds.size.height,
   s = MIN(w, h);
   
+	CGContextBeginTransparencyLayer(ctx, NULL);
   rain(ctx, time, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
   cloud(ctx, time, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+	CGContextEndTransparencyLayer(ctx);
 }
 
 - (void)drawSleetInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
@@ -269,8 +282,10 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   h = self.bounds.size.height,
   s = MIN(w, h);
   
+	CGContextBeginTransparencyLayer(ctx, NULL);
   sleet(ctx, time, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
   cloud(ctx, time, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+	CGContextEndTransparencyLayer(ctx);
 }
 
 - (void)drawSnowInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
@@ -279,8 +294,10 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   h = self.bounds.size.height,
   s = MIN(w, h);
   
+	CGContextBeginTransparencyLayer(ctx, NULL);
   snow(ctx, time, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
   cloud(ctx, time, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+	CGContextEndTransparencyLayer(ctx);
 }
 
 - (void)drawWindInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
@@ -300,8 +317,10 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   s = MIN(w, h),
   k = s * STROKE;
   
+	CGContextBeginTransparencyLayer(ctx, NULL);
   fogbank(ctx, time, w * 0.5, h * 0.32, s * 0.75, k, color);
-  
+	CGContextEndTransparencyLayer(ctx);
+
   time /= 5000;
   
   CGFloat a = cos((time) * TWO_PI) * s * 0.02,
@@ -513,16 +532,21 @@ void leaf(CGContextRef ctx, CGFloat t, CGFloat x, CGFloat y, CGFloat cw, CGFloat
   CGContextSetStrokeColorWithColor(ctx, color);
   CGContextSetLineWidth(ctx, s);
   CGContextSetLineCap(ctx, kCGLineCapRound);
-  CGContextSetLineJoin(ctx, kCGLineJoinRound);;
+  CGContextSetLineJoin(ctx, kCGLineJoinRound);
   
   CGContextBeginPath(ctx);
   CGContextAddArc(ctx, x, y, a, d, d + M_PI, 1);
   CGContextAddArc(ctx, x - b * e, y - b * f, c, d + M_PI, d, 1);
   CGContextAddArc(ctx, x + c * e, y + c * f, b, d + M_PI, d, 0);
+	
   CGContextSetBlendMode(ctx, kCGBlendModeDestinationOut);
-  CGContextFillPath(ctx);
-  CGContextSetBlendMode(ctx, kCGBlendModeNormal);
+	CGContextBeginTransparencyLayer(ctx, NULL);
+	CGContextFillPath(ctx);
+	CGContextSetBlendMode(ctx, kCGBlendModeNormal);
+	CGContextEndTransparencyLayer(ctx);
+
   CGContextStrokePath(ctx);
+	
 }
 
 void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, NSInteger index, CGFloat total, CGColorRef color)
