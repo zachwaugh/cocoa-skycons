@@ -531,7 +531,7 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
   
   SKYWindOffset windOffset = WIND_OFFSETS[index];
   
-  NSInteger pathLength = sizeof(WIND_PATHS[index]) / sizeof(WIND_PATHS[index][0]);
+  NSInteger pathLength = (index == 0) ? 128 : 64;
   CGFloat *path = WIND_PATHS[index];
   
   CGFloat a = fmod(t + index - windOffset.start, total),
