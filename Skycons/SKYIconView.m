@@ -216,7 +216,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
 #pragma mark - Icons
 
-- (void)drawClearDayInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawClearDayInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -225,7 +225,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   sun(ctx, time, w * 0.5, h * 0.5, s, s * STROKE, color);
 }
 
-- (void)drawClearNightInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawClearNightInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -234,7 +234,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   moon(ctx, time, w * 0.5, h * 0.5, s, s * STROKE, color);
 }
 
-- (void)drawPartlyCloudyDayInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawPartlyCloudyDayInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -246,7 +246,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 	CGContextEndTransparencyLayer(ctx);
 }
 
-- (void)drawPartlyCloudyNightInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawPartlyCloudyNightInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -258,7 +258,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 	CGContextEndTransparencyLayer(ctx);
 }
 
-- (void)drawCloudyInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawCloudyInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -269,7 +269,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 	CGContextEndTransparencyLayer(ctx);
 }
 
-- (void)drawRainInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawRainInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -281,7 +281,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 	CGContextEndTransparencyLayer(ctx);
 }
 
-- (void)drawSleetInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawSleetInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -293,7 +293,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 	CGContextEndTransparencyLayer(ctx);
 }
 
-- (void)drawSnowInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawSnowInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -305,7 +305,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 	CGContextEndTransparencyLayer(ctx);
 }
 
-- (void)drawWindInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawWindInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -315,7 +315,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
   swoosh(ctx, time, w * 0.5, h * 0.5, s, s * STROKE, 1, 2, color);
 }
 
-- (void)drawFogInContext:(CGContextRef)ctx time:(CGFloat)time color:(CGColorRef)color
+- (void)drawFogInContext:(CGContextRef)ctx time:(double)time color:(CGColorRef)color
 {
   CGFloat w = self.bounds.size.width,
   h = self.bounds.size.height,
@@ -328,7 +328,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
   time /= 5000;
   
-  CGFloat a = cos((time) * TWO_PI) * s * 0.02,
+  double a = cos((time) * TWO_PI) * s * 0.02,
   b = cos((time + 0.25) * TWO_PI) * s * 0.02,
   c = cos((time + 0.50) * TWO_PI) * s * 0.02,
   d = cos((time + 0.75) * TWO_PI) * s * 0.02,
@@ -347,7 +347,7 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
 #pragma mark - Basic shapes
 
-void puff(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
+void puff(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
 {
   CGFloat c = cos(t * TWO_PI),
   s = sin(t * TWO_PI);
@@ -356,7 +356,7 @@ void puff(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFlo
   circle(ctx, cx - s * rx, cy + c * ry + rmax * 0.5, rmin + (1 - c * 0.5) * rmax);
 }
 
-void puffs(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
+void puffs(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat rx, CGFloat ry, CGFloat rmin, CGFloat rmax)
 {
   CGFloat i;
   
@@ -365,11 +365,11 @@ void puffs(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat rx, CGFl
   }
 }
 
-void cloud(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
+void cloud(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
 {
   t /= 30000;
   
-  CGFloat a = cw * 0.21,
+  double a = cw * 0.21,
   b = cw * 0.12,
   c = cw * 0.24,
   d = cw * 0.28;
@@ -381,11 +381,11 @@ void cloud(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFl
   CGContextSetBlendMode(ctx, kCGBlendModeNormal);
 }
 
-void sun(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
+void sun(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
 {
   t /= 120000;
   
-  CGFloat a = cw * 0.25 - s * 0.5,
+  double a = cw * 0.25 - s * 0.5,
   b = cw * 0.32 + s * 0.5,
   c = cw * 0.50 - s * 0.5,
   i, p, cosine, sine;
@@ -407,11 +407,11 @@ void sun(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloa
   }
 }
 
-void moon(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
+void moon(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
 {
   t /= 15000;
   
-  CGFloat a = cw * 0.29 - s * 0.5,
+  double a = cw * 0.29 - s * 0.5,
   b = cw * 0.05,
   c = cos(t * TWO_PI),
   p = c * TWO_PI / -16;
@@ -430,11 +430,11 @@ void moon(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFlo
   CGContextStrokePath(ctx);
 }
 
-void rain(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
+void rain(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
 {
   t /= 1350;
   
-  CGFloat a = cw * 0.16,
+  double a = cw * 0.16,
   b = TWO_PI * 11 / 12,
   c = TWO_PI *  7 / 12,
   i, p, x, y;
@@ -453,11 +453,11 @@ void rain(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFlo
   }
 }
 
-void sleet(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
+void sleet(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
 {
   t /= 750;
   
-  CGFloat a = cw * 0.1875,
+  double a = cw * 0.1875,
   b = TWO_PI * 11 / 12,
   c = TWO_PI *  7 / 12,
   i, p, x, y;
@@ -475,11 +475,11 @@ void sleet(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFl
   }
 }
 
-void snow(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
+void snow(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color)
 {
   t /= 3000;
   
-  CGFloat a  = cw * 0.16,
+  double a  = cw * 0.16,
   b  = s * 0.75,
   u  = t * TWO_PI * 0.7,
   ux = cos(u) * b,
@@ -508,10 +508,10 @@ void snow(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFlo
   }
 }
 
-void fogbank(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color) {
+void fogbank(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, CGColorRef color) {
   t /= 30000;
   
-  CGFloat a = cw * 0.21,
+  double a = cw * 0.21,
   b = cw * 0.06,
   c = cw * 0.21,
   d = cw * 0.28;
@@ -524,9 +524,9 @@ void fogbank(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CG
   CGContextSetBlendMode(ctx, kCGBlendModeNormal);
 }
 
-void leaf(CGContextRef ctx, CGFloat t, CGFloat x, CGFloat y, CGFloat cw, CGFloat s, CGColorRef color)
+void leaf(CGContextRef ctx, double t, CGFloat x, CGFloat y, CGFloat cw, CGFloat s, CGColorRef color)
 {
-  CGFloat a = cw / 8,
+  double a = cw / 8,
   b = a / 3,
   c = 2 * b,
   d = fmod(t, 1) * TWO_PI,
@@ -554,7 +554,7 @@ void leaf(CGContextRef ctx, CGFloat t, CGFloat x, CGFloat y, CGFloat cw, CGFloat
 	CGContextSetBlendMode(ctx, kCGBlendModeNormal);
 }
 
-void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, NSInteger index, CGFloat total, CGColorRef color)
+void swoosh(CGContextRef ctx, double t, CGFloat cx, CGFloat cy, CGFloat cw, CGFloat s, NSInteger index, double total, CGColorRef color)
 {
   t /= 2500;
   
@@ -563,7 +563,7 @@ void swoosh(CGContextRef ctx, CGFloat t, CGFloat cx, CGFloat cy, CGFloat cw, CGF
   NSInteger pathLength = (index == 0) ? 128 : 64;
   CGFloat *path = WIND_PATHS[index];
   
-  CGFloat a = fmod(t + index - windOffset.start, total),
+  double a = fmod(t + index - windOffset.start, total),
   c = fmod(t + index - windOffset.end, total),
   e = fmod(t + index, total),
   b, d, f, i;
@@ -644,7 +644,7 @@ void circle(CGContextRef ctx, CGFloat x, CGFloat y, CGFloat r)
   CGContextFillPath(ctx);
 }
 
-void line(CGContextRef ctx, CGFloat ax, CGFloat ay, CGFloat bx, CGFloat by)
+void line(CGContextRef ctx, double ax, double ay, CGFloat bx, CGFloat by)
 {
   CGContextBeginPath(ctx);
   CGContextMoveToPoint(ctx, ax, ay);
