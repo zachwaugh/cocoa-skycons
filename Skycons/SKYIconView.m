@@ -152,13 +152,20 @@ static const SKYWindOffset WIND_OFFSETS[] = { (SKYWindOffset){0.36, 0.11}, (SKYW
 
 - (void)play
 {
-  self.timer = [NSTimer scheduledTimerWithTimeInterval:1 / 30.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
+    if(self.timer != nil) {
+        [self pause];
+    }
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 / 30.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
 }
 
 - (void)pause
 {
-  [self.timer invalidate];
-  self.timer = nil;
+    if(self.timer != nil) {
+        [self.timer invalidate];
+    }
+    
+    self.timer = nil;
 }
 
 - (void)update:(NSTimer *)timer
